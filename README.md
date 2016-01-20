@@ -6,13 +6,21 @@ This project involved getting a web page to run at 60 fps.
 
 ### Getting started
 
-To view this project, go  [here](http://matthewmagee05.github.io/views/pizza.html).  
-Or launch the pizza.html file in your browser of choice located in views/pizza.html.
+To view this project, go  [here](http://matthewmagee05.github.io).  
+Or launch the index.html file in your browser of choice.
+
+### Changes made to optimize the portfolio website
+
+* Compressed all images to reduce the file size.
+* Added CSS directly into the index.html
+* Asynchronously load JavaScript file
+* Added script to optimize web font loading
+* Minimized HTML and CSS
+* Changed CSS script to only load when printing
+* Added a CSS that only loads when in portrait mode
 
 
-### Changes made
-
-Below is some of the optimization changes made to make the project run smoother. 
+### Changes made to Pizza website
 
 * At line 449, I moved the variables outside of the for loop, and used the getElementsByClassName loop instead of the querySelectorAll method call.
 * At line 503 I replace querySelectorAll with getElementsByClassName.
