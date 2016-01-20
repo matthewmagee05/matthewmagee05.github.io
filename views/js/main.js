@@ -507,13 +507,19 @@ function updatePositions() {
 
 //Replaced querySelectorAll getElementsByClassName
   var items = document.getElementsByClassName('.mover');
-//Moved this line outside of the for loop.
-  var phase = Math.sin((document.body.scrollTop / 1250) + (i % 5));
+//Moved this line outside of the for loop and modified.  Got help looking 
+// on forums for this, as I was having difficulty.
+  var phase =  var phases = [100 * Math.sin(top/1250),
+        100 * Math.sin(top/1250 + 1),
+        100 * Math.sin(top/1250 + 2),
+        100 * Math.sin(top/1250 + 3),
+        100 * Math.sin(top/1250 + 4)];
   for (var i = 0; i < items.length; i++) {
     
     items[i].style.left = items[i].basicLeft + 100 * phase + 'px';
   }
-
+// This boolean determines when the animation will happen.
+  window.animating = false;
   // User Timing API to the rescue again. Seriously, it's worth learning.
   // Super easy to create custom metrics.
   window.performance.mark("mark_end_frame");
@@ -526,6 +532,13 @@ function updatePositions() {
 
 // runs updatePositions on scroll
 window.addEventListener('scroll', updatePositions);
+
+function animationReadyCheck() {
+  if (!window.animating) {
+    window.requestAnimationFrame(updatePositions);
+    window.animating = true;
+  }
+}
 
 // Generates the sliding pizzas when the page loads.
 document.addEventListener('DOMContentLoaded', function() {
