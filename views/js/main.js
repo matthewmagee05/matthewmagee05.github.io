@@ -1,3 +1,4 @@
+'use strict'
 /*
 Welcome to the 60fps project! Your goal is to make Cam's Pizzeria website run
 jank-free at 60 frames per second.
@@ -399,16 +400,17 @@ var resizePizzas = function(size) {
   window.performance.mark("mark_start_resize");   // User Timing API function
 
   // Changes the value for the size of the pizza above the slider
+  //Changed the querySelector to getElementById.
   function changeSliderLabel(size) {
     switch(size) {
       case "1":
-        document.querySelector("#pizzaSize").innerHTML = "Small";
+        document.getElementById("pizzaSize").innerHTML = "Small";
         return;
       case "2":
-        document.querySelector("#pizzaSize").innerHTML = "Medium";
+        document.getElementById("pizzaSize").innerHTML = "Medium";
         return;
       case "3":
-        document.querySelector("#pizzaSize").innerHTML = "Large";
+        document.getElementById("pizzaSize").innerHTML = "Large";
         return;
       default:
         console.log("bug in changeSliderLabel");
@@ -420,7 +422,8 @@ var resizePizzas = function(size) {
   // Returns the size difference to change a pizza element from one size to another. Called by changePizzaSlices(size).
   function determineDx (elem, size) {
     var oldwidth = elem.offsetWidth;
-    var windowwidth = document.querySelector("#randomPizzas").offsetWidth;
+    // Changed the querySelector to getEelmentById.
+    var windowwidth = document.getElementById("randomPizzas").offsetWidth;
     var oldsize = oldwidth / windowwidth;
 
     // TODO: change to 3 sizes? no more xl?
@@ -449,9 +452,10 @@ var resizePizzas = function(size) {
     //moved these variables outside of the loop and used getElementsByClassName.
     var dx = determineDx(document.getElementsByClassName("randomPizzaContainer")[0], size);
     var newwidth = (document.getElementsByClassName("randomPizzaContainer")[0].offsetWidth + dx) + 'px';
-
+    //Added the container variable so the DOM is not touched in each iteration of the loop
+    var container =  document.getElementsByClassName('randomPizzaContainer');
     for (var i = 0; i < document.getElementsByClassName("randomPizzaContainer").length; i++) {
-      document.getElementsByClassName("randomPizzaContainer")[i].style.width = newwidth;
+      container[i].style.width = newwidth;
     }
   }
   changePizzaSizes(size);
@@ -467,8 +471,10 @@ var resizePizzas = function(size) {
 window.performance.mark("mark_start_generating"); // collect timing data
 
 // This for-loop actually creates and appends all of the pizzas when the page loads
+// Moved this variable outside of the loop.
+ var pizzasDiv = document.getElementById("randomPizzas");
 for (var i = 2; i < 48; i++) {
-  var pizzasDiv = document.getElementById("randomPizzas");
+ 
   pizzasDiv.appendChild(pizzaElementGenerator(i));
 }
 
@@ -542,16 +548,20 @@ function animationCheck() {
 document.addEventListener('DOMContentLoaded', function() {
   var cols = 8;
   var s = 256;
+  //Created the elem variable
+  var elem;
+  //Created the movingPizzas variable.
+  var movingPizzas = document.getElementById('movingPizzas1');
   //Reduced the original amount of pizzas.
   for (var i = 0; i < 48; i++) {
-    var elem = document.createElement('img');
+    elem = document.createElement('img');
     elem.className = 'mover';
     elem.src = "images/pizza.png";
     elem.style.height = "100px";
     elem.style.width = "73.333px";
     elem.basicLeft = (i % cols) * s;
     elem.style.top = (Math.floor(i / cols) * s) + 'px';
-    document.querySelector("#movingPizzas1").appendChild(elem);
+    movingPizzas.appendChild(elem);
   }
   updatePositions();
 });
