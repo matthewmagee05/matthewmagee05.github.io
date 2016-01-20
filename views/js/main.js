@@ -509,7 +509,7 @@ function updatePositions() {
   var items = document.getElementsByClassName('.mover');
 //Moved this line outside of the for loop and modified.  Got help looking 
 // on forums for this, as I was having difficulty.
-  var phase =  var phases = [100 * Math.sin(top/1250),
+  var phases = [100 * Math.sin(top/1250),
         100 * Math.sin(top/1250 + 1),
         100 * Math.sin(top/1250 + 2),
         100 * Math.sin(top/1250 + 3),
